@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chatbot de Logros</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="contenedor-chat">
+
+        <div class="titulo">
+            <h1>Chatbot de Logros</h1>
+            <p>Tu manager de logros para steam</p>
+        </div>
+
+        <div id="chat-box" class="chat-box">
+
+    <div class="mensaje bot">
+        <strong>Hunter:</strong>
+        Hola! <br><br>
+
+        Soy Hunter, tu asistente especializado en logros de videojuegos.<br><br>
+        Actualmente solo conozco los logros de Steam de los siguientes juegos:<br><br>
+        Yakuza 0, Dead Space, Metal Gear Solid 3, Resident Evil, Silent Hill 2 y Tomb Raider.<br><br>
+
+        Si tienes alguna duda sobre como conseguir los logros de algun juego, no dudes en preguntarme!
+    </div>
+
+</div>
+
+        <div class="input-area">
+            <input type="text" id="pregunta" placeholder="Escribe una pregunta...">
+
+            <button onclick="enviarPregunta()">
+                Enviar
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+    async function enviarPregunta() {
+
+        const input = document.getElementById("pregunta");
+        const pregunta = input.value.trim();
+
+        if (pregunta === "") {
+            return;
+        }
+
+        const chatBox = document.getElementById("chat-box");
+
+        chatBox.innerHTML += `
+            <div class="mensaje usuario">
+                <strong>Tú:</strong> ${pregunta}
+            </div>
+        `;
+
+        input.value = "";
+
+        const typingId = "typing-" + Date.now();
+
+        chatBox.innerHTML += `
+            <div class="mensaje bot escribiendo" id="${typingId}">
+                <strong>Hunter:</strong>
+                <span class="puntos">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </div>
+        `;
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        const respuesta = await fetch("/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                pregunta: pregunta
+            })
+        });
+
+        const datos = await respuesta.json();
+
+        const typingMessage = document.getElementById(typingId);
+
+        typingMessage.innerHTML = `
+            <strong>Hunter:</strong> ${datos.respuesta}
+        `;
+
+        typingMessage.classList.remove("escribiendo");
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    document.getElementById("pregunta")
+        .addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                enviarPregunta();
+            }
+        });
+</script>
+
+</body>
+
+</html>

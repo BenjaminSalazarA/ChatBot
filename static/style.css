@@ -1,0 +1,205 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f1117;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+}
+
+.contenedor-chat {
+
+    width: 700px;
+    height: 850px;
+
+    background-color: #1a1d26;
+
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+}
+
+.titulo {
+
+    background-color: #232734;
+
+    padding: 20px;
+
+    border-bottom: 1px solid #333;
+}
+
+.titulo h1 {
+
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.titulo p {
+
+    color: #9aa4b2;
+}
+
+.chat-box {
+
+    flex: 1;
+
+    padding: 20px;
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.mensaje {
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    max-width: 80%;
+
+    line-height: 1.5;
+}
+
+.usuario {
+
+    align-self: flex-end;
+
+    background-color: #3b82f6;
+
+    color: white;
+}
+
+.bot {
+
+    align-self: flex-start;
+
+    background-color: #2a2f3d;
+
+    color: #e5e7eb;
+}
+
+.input-area {
+
+    display: flex;
+
+    padding: 20px;
+
+    gap: 10px;
+
+    background-color: #232734;
+
+    border-top: 1px solid #333;
+}
+
+input {
+
+    flex: 1;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background-color: #2a2f3d;
+
+    color: white;
+
+    font-size: 16px;
+}
+
+input:focus {
+
+    outline: none;
+
+    border: 1px solid #3b82f6;
+}
+
+button {
+
+    padding: 15px 25px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background-color: #3b82f6;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+
+    background-color: #2563eb;
+}
+
+.chat-box::-webkit-scrollbar {
+
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+
+    background-color: #444;
+
+    border-radius: 10px;
+}
+
+.puntos {
+    display: inline-flex;
+    gap: 5px;
+    margin-left: 8px;
+}
+
+.puntos span {
+    width: 7px;
+    height: 7px;
+    background-color: #e5e7eb;
+    border-radius: 50%;
+    display: inline-block;
+    animation: escribir 1.2s infinite ease-in-out;
+}
+
+.puntos span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.puntos span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes escribir {
+    0%, 80%, 100% {
+        transform: scale(0.6);
+        opacity: 0.4;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
